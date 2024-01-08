@@ -16,16 +16,16 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="P39 类型转换： 1、注意区别 类型提升、类型转换 2、 1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、 对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr">
+    <meta name="description" content="P39类型转换：1、注意区别 类型提升、类型转换2、1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr);  对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="听课笔记">
 <meta property="og:url" content="http://example.com/2024/01/06/net-work/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="P39 类型转换： 1、注意区别 类型提升、类型转换 2、 1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、 对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr">
+<meta property="og:description" content="P39类型转换：1、注意区别 类型提升、类型转换2、1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr);  对">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="c:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20240108110427548.png">
 <meta property="article:published_time" content="2024-01-06T09:58:56.000Z">
-<meta property="article:modified_time" content="2024-01-08T10:37:38.247Z">
+<meta property="article:modified_time" content="2024-01-08T13:44:20.268Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="c:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20240108110427548.png">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          260 words
+          387 words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          3 mins
+          4 mins
         
       </span>
     
@@ -274,34 +274,36 @@
             
               <div class="markdown-body">
                 
-                <p>P39</p>
-<p>类型转换：</p>
-<p>1、注意区别 类型提升、类型转换</p>
-<p>2、</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> *ptr;<br><span class="hljs-type">void</span> *v =ptr;<br><br><span class="hljs-type">int</span> *ptr2=<span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">int</span> *&gt;(v)<br></code></pre></td></tr></table></figure>
+                <h1 id="P39类型转换："><a href="#P39类型转换：" class="headerlink" title="P39类型转换："></a>P39类型转换：</h1><h2 id="1、注意区别-类型提升、类型转换"><a href="#1、注意区别-类型提升、类型转换" class="headerlink" title="1、注意区别 类型提升、类型转换"></a>1、注意区别 类型提升、类型转换</h2><h2 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> *ptr;<br><span class="hljs-type">void</span> *v =ptr;<br><br><span class="hljs-type">int</span> *ptr2=<span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">int</span> *&gt;(v)<br></code></pre></td></tr></table></figure>
 
 
 
 <p>对于安全的显示类型转换 有 dynamic_cast</p>
-<p>3、</p>
-<p>对于常量型指针,转化为非常量型的指针，但是仍是不安全的</p>
+<h2 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h2><p>对于常量型指针,转化为非常量型的指针，但是仍是不安全的</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">const</span> <span class="hljs-type">int</span> *ptr;<br><br><span class="hljs-keyword">const_cast</span> &lt;<span class="hljs-type">int</span>*&gt;(ptr);<br></code></pre></td></tr></table></figure>
 
 <p>对于常量型引用，切记引用的最初，就应该是变量而不是常量，像这种常量，能过编译器，但是还是存在问题。</p>
 <p><img src="C:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20240108110427548.png" srcset="/img/loading.gif" lazyload alt="image-20240108110427548"></p>
 <p>系统输出3，而不是4，因为系统直接进行替换，而不是修改。</p>
-<p>4、</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">reinterpret_cast</span>&lt;&gt;()<span class="hljs-comment">//用于重新解释</span><br></code></pre></td></tr></table></figure>
+<h2 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">reinterpret_cast</span>&lt;&gt;()<span class="hljs-comment">//用于重新解释</span><br></code></pre></td></tr></table></figure>
 
 <p>请注意，这里的重新解释，针对指针，而不是普通变量。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> x=<span class="hljs-number">3</span>;<br><span class="hljs-type">int</span> *ptr=&amp;x;<br><span class="hljs-type">double</span> *ptr2=<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">double</span> *&gt;(ptr);<span class="hljs-comment">//这就相当于将地址变量补位了，double类型会变，float类型不会变，但是均不是我想要的</span><br></code></pre></td></tr></table></figure>
 
-<p> 5、C类型转换 </p>
-<p>(double)3 这就是C类型转换，系统就会依次性的使用</p>
+<h2 id="5、C类型转换"><a href="#5、C类型转换" class="headerlink" title="5、C类型转换"></a>5、C类型转换</h2><p>(double)3 这就是C类型转换，系统就会依次性的使用</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const_cast</span>,<br><span class="hljs-keyword">static_cast</span>,<br><span class="hljs-built_in">static_cast</span>(扩展)+<span class="hljs-keyword">const_cast</span>,<br><span class="hljs-keyword">reinterpret_cast</span>,<br><span class="hljs-keyword">reinterpret_cast</span>+<span class="hljs-keyword">const_cast</span>.<br></code></pre></td></tr></table></figure>
 
-<p>P40</p>
-<p>算术操作符</p>
+
+
+<h1 id="P40算术操作符"><a href="#P40算术操作符" class="headerlink" title="P40算术操作符"></a>P40算术操作符</h1><h2 id="1、一元操作符（有关于数据类型）"><a href="#1、一元操作符（有关于数据类型）" class="headerlink" title="1、一元操作符（有关于数据类型）"></a>1、一元操作符（有关于数据类型）</h2><p>int a[3]&#x3D;{1,2,3};</p>
+<p>const auto &amp;x&#x3D;+a;</p>
+<p>这样的话，解释过来，int * const &amp; x &#x3D; +a;</p>
+<p>请注意  顺序依次是</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">auto</span> x=a;<br><span class="hljs-keyword">auto</span> &amp;x=a;<br><span class="hljs-keyword">auto</span> &amp;x=+a;<span class="hljs-comment">//这样会编译错误</span><br>必须是<br><span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> &amp;x=+a <span class="hljs-comment">// int * const &amp; x = +a;</span><br>如果没有+<br>解释出来后，就出现了<span class="hljs-type">int</span> <span class="hljs-type">const</span> （&amp;x）[<span class="hljs-number">3</span>]=a;也就是没有类型转换了<br></code></pre></td></tr></table></figure>
+
+<p>2、一元操作符（整数类型提升，integral promotion）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">short <span class="hljs-attribute">x</span>=3;<br>auto <span class="hljs-attribute">y</span>=+3;//此时，int y= +static_cast&lt;int&gt; (x);<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>

@@ -16,16 +16,16 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="类型转换： 1、注意区别 类型提升、类型转换 2、 1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、 对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr);">
+    <meta name="description" content="P39 类型转换： 1、注意区别 类型提升、类型转换 2、 1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、 对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="听课笔记">
 <meta property="og:url" content="http://example.com/2024/01/06/net-work/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="类型转换： 1、注意区别 类型提升、类型转换 2、 1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、 对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr);">
+<meta property="og:description" content="P39 类型转换： 1、注意区别 类型提升、类型转换 2、 1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、 对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="c:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20240108110427548.png">
 <meta property="article:published_time" content="2024-01-06T09:58:56.000Z">
-<meta property="article:modified_time" content="2024-01-08T03:27:49.963Z">
+<meta property="article:modified_time" content="2024-01-08T10:37:38.247Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="c:\Users\DELL\AppData\Roaming\Typora\typora-user-images\image-20240108110427548.png">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          225 words
+          260 words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          2 mins
+          3 mins
         
       </span>
     
@@ -274,7 +274,8 @@
             
               <div class="markdown-body">
                 
-                <p>类型转换：</p>
+                <p>P39</p>
+<p>类型转换：</p>
 <p>1、注意区别 类型提升、类型转换</p>
 <p>2、</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> *ptr;<br><span class="hljs-type">void</span> *v =ptr;<br><br><span class="hljs-type">int</span> *ptr2=<span class="hljs-built_in">static_cast</span>&lt;<span class="hljs-type">int</span> *&gt;(v)<br></code></pre></td></tr></table></figure>
@@ -295,7 +296,12 @@
 <p>请注意，这里的重新解释，针对指针，而不是普通变量。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> x=<span class="hljs-number">3</span>;<br><span class="hljs-type">int</span> *ptr=&amp;x;<br><span class="hljs-type">double</span> *ptr2=<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">double</span> *&gt;(ptr);<span class="hljs-comment">//这就相当于将地址变量补位了，double类型会变，float类型不会变，但是均不是我想要的</span><br></code></pre></td></tr></table></figure>
 
-<p> 5、C类型转换</p>
+<p> 5、C类型转换 </p>
+<p>(double)3 这就是C类型转换，系统就会依次性的使用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const_cast</span>,<br><span class="hljs-keyword">static_cast</span>,<br><span class="hljs-built_in">static_cast</span>(扩展)+<span class="hljs-keyword">const_cast</span>,<br><span class="hljs-keyword">reinterpret_cast</span>,<br><span class="hljs-keyword">reinterpret_cast</span>+<span class="hljs-keyword">const_cast</span>.<br></code></pre></td></tr></table></figure>
+
+<p>P40</p>
+<p>算术操作符</p>
 
                 
               </div>

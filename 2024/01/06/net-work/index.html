@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
 <meta property="article:published_time" content="2024-01-06T09:58:56.000Z">
-<meta property="article:modified_time" content="2024-01-29T07:53:18.036Z">
+<meta property="article:modified_time" content="2024-01-29T08:15:15.861Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          600 words
+          615 words
         
       </span>
     
@@ -307,11 +307,14 @@
 <h2 id="3、整数相除会产生整数，向0取整，求余仅接受整数，符号参照第一个操作"><a href="#3、整数相除会产生整数，向0取整，求余仅接受整数，符号参照第一个操作" class="headerlink" title="3、整数相除会产生整数，向0取整，求余仅接受整数，符号参照第一个操作"></a>3、整数相除会产生整数，向0取整，求余仅接受整数，符号参照第一个操作</h2><h2 id="4、满足（m-n-m-n-m"><a href="#4、满足（m-n-m-n-m" class="headerlink" title="4、满足（m&#x2F;n)+(m%n)&#x3D;&#x3D;m"></a>4、满足（m&#x2F;n)+(m%n)&#x3D;&#x3D;m</h2><h1 id="P48-语句基础"><a href="#P48-语句基础" class="headerlink" title="P48 语句基础"></a>P48 语句基础</h1><h2 id="1、顺序语句和非顺序语句"><a href="#1、顺序语句和非顺序语句" class="headerlink" title="1、顺序语句和非顺序语句"></a>1、顺序语句和非顺序语句</h2><p>一般来讲,顺序语句（硬件流水线有关）会比非顺序语句执行速度快</p>
 <h2 id="2、典型非顺序语句：goto"><a href="#2、典型非顺序语句：goto" class="headerlink" title="2、典型非顺序语句：goto"></a>2、典型非顺序语句：goto</h2><p>不能跨函数跳转 、向前跳转不能越过对象初始化语句、向后跳转（向后是指向上）可能会导致对象销毁与重新初始化</p>
 <h2 id="3、分支语句"><a href="#3、分支语句" class="headerlink" title="3、分支语句"></a>3、分支语句</h2><p>稍作特殊记录</p>
-<p>1、这样就是编译器就可以确定，所以节省时间，提高效率</p>
+<p>1、这样就是编译器就可以确定,优化了很多部分的代码，所以节省时间，提高了效率</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> grade =<span class="hljs-number">59</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">if</span> <span class="hljs-title">constexpr</span> <span class="hljs-params">(grade&lt;<span class="hljs-number">60</span>)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function">...</span><br></code></pre></td></tr></table></figure>
+
+
 
 <p>2、条件框内,可以使用初始化，这样的话变量的生命周期就可控了</p>
 <p>if(int y&#x3D;x*3;y&gt;100)</p>
+<p>3、switch语句</p>
 
                 
               </div>

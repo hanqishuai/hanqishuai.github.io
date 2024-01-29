@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
 <meta property="article:published_time" content="2024-01-06T09:58:56.000Z">
-<meta property="article:modified_time" content="2024-01-29T08:15:15.861Z">
+<meta property="article:modified_time" content="2024-01-29T09:30:46.269Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          615 words
+          779 words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          6 mins
+          7 mins
         
       </span>
     
@@ -314,8 +314,29 @@
 
 <p>2、条件框内,可以使用初始化，这样的话变量的生命周期就可控了</p>
 <p>if(int y&#x3D;x*3;y&gt;100)</p>
-<p>3、switch语句</p>
+<p>&#96;&#96;</p>
+<h2 id="3、switch语句"><a href="#3、switch语句" class="headerlink" title="3、switch语句"></a>3、switch语句</h2><p>C++17之后，</p>
+<p>switch(std::cin&gt;&gt;x;x)</p>
+<p>{</p>
+<p>case 4:</p>
+<p>break；</p>
+<p>&#x2F;&#x2F;int y&#x3D;4; 这样是不可以的，因为这是一个整体的Switch代码，是不可以简单的定义的变量。</p>
+<p>&#x2F;&#x2F;但是如果你非得定义，需要大括号</p>
+<p>case 4：</p>
+<p>{</p>
+<p>int y&#x3D;4；</p>
+<p>break；</p>
+<p>}</p>
+<p>case 5：</p>
+<p>break；</p>
+<p>}</p>
+<p>为进一步防止 break缺失引出的问题，我们可以在编译器的设置中添加，Wimplicit-fallthrough</p>
+<p>当然 如果我们希望3执行完后执行4，然后并不需要提醒我，使用[[fallthrough]];即可 （C++17以后）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>    std::cout&lt;&lt;<span class="hljs-string">&quot;3&quot;</span>&lt;&lt;std::endl;<br>    [[fallthrough]];<br><span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>    std::cout&lt;&lt;<span class="hljs-string">&quot;4&quot;</span>&lt;&lt;std::endl;<br></code></pre></td></tr></table></figure>
 
+
+
+<h2 id="4、while语句"><a href="#4、while语句" class="headerlink" title="4、while语句"></a>4、while语句</h2>
                 
               </div>
             

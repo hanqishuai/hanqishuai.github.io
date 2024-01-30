@@ -24,8 +24,10 @@
 <meta property="og:description" content="P39类型转换：1、注意区别 类型提升、类型转换2、1234int *ptr;void *v &#x3D;ptr;int *ptr2&#x3D;static_cast&lt;int *&gt;(v)    对于安全的显示类型转换 有 dynamic_cast 3、对于常量型指针,转化为非常量型的指针，但是仍是不安全的 123const int *ptr;const_cast &lt;int*&gt;(ptr);  对">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65b8a537871b83018a41c163.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65b8b60d871b83018a7480e2.jpg">
 <meta property="article:published_time" content="2024-01-06T09:58:56.000Z">
-<meta property="article:modified_time" content="2024-01-29T09:30:46.269Z">
+<meta property="article:modified_time" content="2024-01-30T08:59:53.674Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
@@ -221,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          779 words
+          1.3k words
         
       </span>
     
@@ -232,7 +234,7 @@
         
         
         
-          7 mins
+          11 mins
         
       </span>
     
@@ -336,7 +338,50 @@
 
 
 
-<h2 id="4、while语句"><a href="#4、while语句" class="headerlink" title="4、while语句"></a>4、while语句</h2>
+<h2 id="4、while语句"><a href="#4、while语句" class="headerlink" title="4、while语句"></a>4、while语句</h2><p>C语言不可以、C++17之前不行，C++17之后，while（判断条件中可以存在初始化语句）</p>
+<p>再有就是do-while&#x2F;while&#x2F;for三者的细微区别，略过。</p>
+<p>需要注意的是</p>
+<p>for循环中初始化语句，仅可以声明同类型的变量</p>
+<p>请注意（同一行）<br>int x&#x3D;3，*p&#x3D;&x;</p>
+<p>int *x,q;&#x2F;&#x2F;x为指针，但是q是整型int，所以容易存在误解！</p>
+<p>新增部分，基于范围的for循环</p>
+<p>例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::vector &lt;<span class="hljs-type">int</span>&gt; arr&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br><br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> v:arr)<br><br>std::cout&lt;&lt;v&lt;&lt;<span class="hljs-string">&#x27;\n&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>本质：语法糖，编译器会转换为for循环的调用方式（c++17之后，这个转换方式改变了，之前是</p>
+<p>auto _begin&#x3D; 首表达式,   _end&#x3D;尾表达式，上文提到的那个问题，这样声明是可能会存在歧义的。<br>）</p>
+<p><img src="https://pic.imgdb.cn/item/65b8a537871b83018a41c163.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>看似安全的C++17，范围表达式还是有可能出现问题。</p>
+<p>问题如下：</p>
+<p><img src="https://pic.imgdb.cn/item/65b8b60d871b83018a7480e2.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>所以C++20开始，在范围表达式之前增加了初始化语句。</p>
+<p>还有一点，使用常量左值引用读元素，</p>
+<ul>
+<li>引用  可以加快遍历速度，不需要拷贝</li>
+<li>常引用，就满足了不会修改</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::vector &lt;<span class="hljs-type">int</span>&gt; arr&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br><br><span class="hljs-keyword">for</span>(<span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp; v:arr)<br><br>std::cout&lt;&lt;v&lt;&lt;<span class="hljs-string">&#x27;\n&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>再通俗一点，这里就需要使用</p>
+<p>const auto &amp; v</p>
+<p><strong>但是如果是修改元素，直接去掉const，而使用auto &amp; v,是会报错的，</strong></p>
+<p>举例</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++">std::vector &lt;<span class="hljs-type">int</span>&gt; arr&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;v : arr) &#123;<br>	v = v + <span class="hljs-number">1</span>;<br>	std::cout &lt;&lt; v &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>以上没有问题</p>
+<p>以下出现问题，我们使用万能引用来解决这个问题，**<u>auto &amp;&amp;v</u>**</p>
+<pre><code class="hljs">std::vector &lt;bool&gt; arr&#123;true，false&#125;;
+
+for (auto &amp;v : arr) &#123;
+    v=false;
+&#125;
+会报错
+我们应当使用
+for (auto &amp;&amp;v : arr) &#123;
+    v=false;
+&#125;
+</code></pre>
+
                 
               </div>
             

@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/65b8a537871b83018a41c163.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/65b8b60d871b83018a7480e2.jpg">
 <meta property="article:published_time" content="2024-01-06T09:58:56.000Z">
-<meta property="article:modified_time" content="2024-01-30T08:59:53.674Z">
+<meta property="article:modified_time" content="2024-02-02T04:22:02.751Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k words
+          1.4k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          11 mins
+          12 mins
         
       </span>
     
@@ -370,17 +370,15 @@
 
 <p>以上没有问题</p>
 <p>以下出现问题，我们使用万能引用来解决这个问题，**<u>auto &amp;&amp;v</u>**</p>
-<pre><code class="hljs">std::vector &lt;bool&gt; arr&#123;true，false&#125;;
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++">std::vector &lt;<span class="hljs-type">bool</span>&gt; arr&#123;<span class="hljs-literal">true</span>，<span class="hljs-literal">false</span>&#125;;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;v : arr) &#123;<br>	v=<span class="hljs-literal">false</span>;<br>&#125;<br>会报错<br>我们应当使用<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;&amp;v : arr) &#123;<br>	v=<span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-for (auto &amp;v : arr) &#123;
-    v=false;
-&#125;
-会报错
-我们应当使用
-for (auto &amp;&amp;v : arr) &#123;
-    v=false;
-&#125;
-</code></pre>
+
+
+<h2 id="5-达夫设备—语句的综合应用"><a href="#5-达夫设备—语句的综合应用" class="headerlink" title="5.达夫设备—语句的综合应用"></a>5.达夫设备—语句的综合应用</h2><ol>
+<li><p>循环展开,但是容易产生内存越界，举例，如果这里的n是10001，那么i&#x3D;10000时，再次进入循环，执行8次max…,就会产生越界！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span>（<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>；i&lt;n; i++）&#123;max... &#125;;<br><br>改为<br><br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i+=<span class="hljs-number">8</span>)      &#123;max... <span class="hljs-number">8</span>次&#125;;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>最直观的解决方案就是，0—9999这些，正常处理，但是10000 10001单独处理</p>
 
                 
               </div>

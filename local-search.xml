@@ -8,7 +8,7 @@
     <link href="/2024/03/05/pro_define/"/>
     <url>/2024/03/05/pro_define/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="C-语言性能"><a href="#C-语言性能" class="headerlink" title="C++语言性能"></a>C++语言性能</h1><p>特点如下：</p><p>1、不确定大端法还是小端法，原因：与底层硬件紧密结合</p><p>2、对象生命周期的精确控制</p><p>3、Zero-overhead  abstraction</p><p>包括两点：</p><p>虚函数（不需要为没有使用的语言特性付出成本）</p><p>仅用某些函数特性不会额外付出性能（被编译器优化了）</p>]]></content>
     
     
     

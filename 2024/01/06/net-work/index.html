@@ -28,8 +28,9 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/65b8b60d871b83018a7480e2.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/65e6bf539f345e8d03c0d832.jpg">
 <meta property="og:image" content="https://pic.imgdb.cn/item/65e828f89f345e8d03494845.jpg">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65f1574e9f345e8d03a02da7.png">
 <meta property="article:published_time" content="2024-01-06T09:58:56.000Z">
-<meta property="article:modified_time" content="2024-03-06T08:38:24.845Z">
+<meta property="article:modified_time" content="2024-03-17T13:43:37.046Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pic.imgdb.cn/item/659cfb70871b83018a963025.png">
@@ -225,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k words
+          3.8k words
         
       </span>
     
@@ -236,7 +237,7 @@
         
         
         
-          20 mins
+          32 mins
         
       </span>
     
@@ -455,6 +456,86 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc,<span class="hljs-type">char</span>* argv[])</span></span><br></code></pre></td></tr></table></figure>
 
 <h6 id="argv-0-代表的是调用可执行程序的方式"><a href="#argv-0-代表的是调用可执行程序的方式" class="headerlink" title="argv[0]代表的是调用可执行程序的方式"></a>argv[0]代表的是调用可执行程序的方式</h6><p><img src="https://pic.imgdb.cn/item/65e828f89f345e8d03494845.jpg" srcset="/img/loading.gif" lazyload></p>
+<h4 id="5、函数体部分详解"><a href="#5、函数体部分详解" class="headerlink" title="5、函数体部分详解"></a>5、函数体部分详解</h4><p>隐式返回&#x2F;显示返回</p>
+<p>显示返回关键字： return</p>
+<h5 id="return"><a href="#return" class="headerlink" title="return ;"></a>return ;</h5><p>return 表达式</p>
+<p>return 初始化列表</p>
+<p>例：</p>
+<p>这段代码的问题在于，<code>std::initializer_list</code> 返回的是一个临时对象，而且它的生命周期是在当前表达式结束后即刻结束。在 <code>fun()</code> 函数返回后，临时的 <code>initializer_list</code> 对象就会被销毁，所以在 <code>main()</code> 函数中使用 <code>auto x = fun();</code> 赋值给 <code>x</code> 的是一个悬空的 <code>initializer_list</code>，使用 <code>x</code> 的行为是未定义的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++">std::initializer_list &lt;<span class="hljs-type">int</span>&gt; <span class="hljs-built_in">fun</span>()<br>&#123;<br>    <span class="hljs-keyword">return</span> &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">auto</span> x = <span class="hljs-built_in">fun</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意  返回自动对象的引用或指针</p>
+<p>返回值优化（RVO） C++17对返回临时对象的强制优化：系统会引入额外的参数，从而省略拷贝构造的过程。</p>
+<p>例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs"><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">Str <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span><br>&#123;<br>	Str x;<br>	<span class="hljs-keyword">return</span> x;<br>&#125;<br>int main()<br>&#123;<br>Str res = <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//这里其实发生了两次拷贝构造</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="6、函数的返回类型"><a href="#6、函数的返回类型" class="headerlink" title="6、函数的返回类型"></a>6、函数的返回类型</h4><p>函数返回的几种写法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++">C++<span class="hljs-number">11</span> <span class="hljs-comment">//位于函数头的后部</span><br><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> a,<span class="hljs-type">int</span> b)</span> -&gt; <span class="hljs-type">int</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"></span>&#123;<br><br>&#125;<br><span class="hljs-comment">//初步看没什么不同，但是如果涉及到类的成员函数</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">S::fun</span><span class="hljs-params">(<span class="hljs-type">int</span> a,<span class="hljs-type">int</span> b)</span> -&gt; Myint<span class="hljs-comment">//优先在S类内寻找Myint</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"></span>&#123;<br><br>&#125;<br><span class="hljs-function">S::Myint <span class="hljs-title">S::fun</span><span class="hljs-params">(<span class="hljs-type">int</span> a,<span class="hljs-type">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs C++">C++<span class="hljs-number">14</span> <span class="hljs-comment">//自动推导</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> a,<span class="hljs-type">int</span> b)</span><span class="hljs-comment">//auto的类型是根据return语句来的，如果有多个return语句，要保持一致</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><span class="hljs-comment">//如何解决这个问题呢？答：constexpr</span><br><span class="hljs-comment">//例：</span><br><span class="hljs-keyword">constexpr</span> <span class="hljs-type">bool</span> value = <span class="hljs-literal">true</span>;<span class="hljs-comment">//这样的话 编译器根据value的值可以省略一部分，就不会出现多个return语句不一致的问题了</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">fun</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-function"><span class="hljs-keyword">if</span> <span class="hljs-title">constexpr</span><span class="hljs-params">(value)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<span class="hljs-keyword">else</span><br>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">3.14</span>;<br>&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p> 返回类型与结构化绑定（C++17）&#x2F;&#x2F;但并非所有的数据类型都可以结构化绑定</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Str</span><br><br>&#123;<br><br><span class="hljs-type">int</span> x;<br><span class="hljs-type">int</span> y;<br><br>&#125;<br><br><span class="hljs-function">Str <span class="hljs-title">fun</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"></span>&#123;<br><br><span class="hljs-keyword">return</span> Str&#123;&#125;;<br><br>&#125;<br><br><span class="hljs-keyword">auto</span> [v1,v2] = <span class="hljs-built_in">fun</span>();<span class="hljs-comment">//这里可以直接访问v1，v2</span><br><br></code></pre></td></tr></table></figure>
+
+<p>[[nodiscard]]属性（C++17）&#x2F;&#x2F;用来提示不应该丢弃返回值</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">[[nodiscard]] int <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">(int a,int b)</span></span><br>&#123;<br><span class="hljs-keyword">return</span> a+b;<br>&#125;<br>int main()<br>&#123;<br><span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="7、函数重载"><a href="#7、函数重载" class="headerlink" title="7、函数重载"></a>7、函数重载</h4><p>使用相同的函数名定义多个函数，每个函数具有不同的参数列表</p>
+<p>注意：不能基于不同的返回类型进行重载</p>
+<p>name mangling,效果就是产生给编译器看的东西</p>
+<p>重载解析：也即编译器如何选择正确的版本完成函数调用，使我们的函数重载解析时，尽可能的符合常识。</p>
+<p>1、名称查找分为：(有它本身的缺点，例：会限定在域内，相当于固定了查找范围的优先级，可能造成不恰当的调用)</p>
+<ul>
+<li>限定查找：例</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">::<span class="hljs-built_in">fun</span>();<span class="hljs-comment">//限定在全局去找，不会深入到类内</span><br>MyNS::<span class="hljs-built_in">fun</span>();<span class="hljs-comment">//限定在类内或域内进行查找</span><br></code></pre></td></tr></table></figure>
+
+<p>非限定查找 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">fun</span>();<span class="hljs-comment">//直接调用会进行域的逐级查找</span><br></code></pre></td></tr></table></figure>
+
+<p>例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"></span>&#123;&#125;<br><span class="hljs-keyword">namespace</span> MyNS<br>&#123;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-built_in">fun</span>(<span class="hljs-number">3</span>);<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">double</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>std::cout&lt;&lt;<span class="hljs-string">&quot;xx&quot;</span>;<br>&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>MyNS::<span class="hljs-built_in">g</span>();<span class="hljs-comment">//这里会调用到域内还是全局的fun，取决于g()函数和域内fun()函数的相对关系（位置）,实质</span><br>    <span class="hljs-comment">//就是编译器知道的顺序先后</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>2、实参依赖查找：只对自定义类型生效</p>
+<p>对于重载解析的整体步骤，大致分为两部分</p>
+<p>  <img src="https://pic.imgdb.cn/item/65f1574e9f345e8d03a02da7.png" srcset="/img/loading.gif" lazyload></p>
+<p>例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// bool 转 int 就是promotion</span><br><span class="hljs-comment">// 1 转float 或 double 均是标准转换 </span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="8、函数相关的其他内容"><a href="#8、函数相关的其他内容" class="headerlink" title="8、函数相关的其他内容"></a>8、函数相关的其他内容</h3><p>1、递归函数，以二分查找作为例子</p>
+<p>2、内联函数（适用于较为简单的函数，编译器会直接调用展开,就不会涉及到后面的栈帧的建立、销毁）</p>
+<p>即使我不加inline，编译器在针对翻译单元进行操作时，有时编译器也会直接展开函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">//...</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">fun</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对于编译器而言，内联函数可以被编译器重复接受，并选择其中一个，不会报错</p>
+<p>实质，就是翻译单元也要有一致性原则</p>
+<p>3、constexpr 常量表达式，针对变量或者针对函数，使其在编译器就被确定</p>
+<ul>
+<li>constexpr函数（C++11起），既可以在编译期执行也可以在运行期执行。</li>
+<li>consteval函数（C++20起），只能在编译期运行，强制在编译期执行，可以提升性能，但是函数体中不能出现在运行期间才可以执行的语句。</li>
+</ul>
+<p>数组类型与函数类型的联系与区别</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> K = <span class="hljs-type">int</span> [<span class="hljs-number">3</span>];<br>K a;<br><br><span class="hljs-keyword">using</span> K =<span class="hljs-built_in">int</span> (<span class="hljs-type">int</span>)<br>K fun;<span class="hljs-comment">//这样声明是可以的，等于int fun(int),但是不能继续定义</span><br><br></code></pre></td></tr></table></figure>
+
+<p>接下来重点介绍  数组指针类型、函数指针类型</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">using</span> K = <span class="hljs-type">int</span>[<span class="hljs-number">3</span>];<br>K* a;<span class="hljs-comment">//相当于int (*a) [3];一定注意，这里的括号，是不能省略int *a[3]//这样写的话，代表a[3]数组,数组元素的类型为int *</span><br><br><br><span class="hljs-keyword">using</span> K = <span class="hljs-built_in">int</span>(<span class="hljs-type">int</span>);<br>K * fun;<span class="hljs-comment">//一定要注意，这里的fun，就不再是函数声明、而是变量、而是指针</span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">dec</span><span class="hljs-params">(<span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">///</span><br>&#125;<br>fun = &amp;dec;<span class="hljs-comment">//这样的话，就有了一个典型的函数指针，调用时就可以使用(*fun) (100)</span><br><span class="hljs-comment">//既然是函数指针，也就可以作为函数的参数</span><br><span class="hljs-comment">//我来写一个高级函数</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Twice</span><span class="hljs-params">(K *fun,<span class="hljs-type">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> tmp=(*fun)(x);<br>    <span class="hljs-keyword">return</span> tmp*<span class="hljs-number">2</span>;<br>&#125;<br><span class="hljs-comment">//再来一个</span><br>std::vector&lt;<span class="hljs-type">int</span>&gt; a&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br>std::<span class="hljs-built_in">transform</span>(a.<span class="hljs-built_in">begin</span>(),a.<span class="hljs-built_in">end</span>(),a.<span class="hljs-built_in">begin</span>(),&amp;dec);<br><span class="hljs-comment">//相当于就是a数组中的每个元素，依次调用dec函数</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>4、函数指针与重载</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"></span>&#123;<br><br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span>,<span class="hljs-type">int</span>)</span></span><br><span class="hljs-function"></span>&#123;<br><br>&#125;<br><span class="hljs-keyword">auto</span> x = fun;<span class="hljs-comment">//这样就会产生歧义</span><br><span class="hljs-comment">//可以改用以下</span><br><span class="hljs-keyword">using</span> K=<span class="hljs-built_in">void</span> (<span class="hljs-type">int</span>)<br>K* x=fun;<br></code></pre></td></tr></table></figure>
+
+<p><strong>5、函数指针作返回值</strong><br>与数组类似，函数返回与数组返回，均不能返回函数本身、数组本身，因为数组与函数均不可以复制，那么返回的自然是数组指针或者函数指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">bool</span> input)</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-keyword">if</span>(input)<br><span class="hljs-keyword">return</span> inc;<br><span class="hljs-keyword">else</span><br><span class="hljs-keyword">return</span> dec;<br>&#125;<br><br>std::cout&lt;&lt;(*<span class="hljs-built_in">fun</span>(<span class="hljs-literal">true</span>))(<span class="hljs-number">100</span>)&lt;&lt;std::endl;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>

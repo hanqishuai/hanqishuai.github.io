@@ -8,7 +8,7 @@
     <link href="/2024/03/17/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
     <url>/2024/03/17/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</url>
     
-    <content type="html"><![CDATA[<p>hello world！</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="动态内存基础"><a href="#动态内存基础" class="headerlink" title="动态内存基础"></a>动态内存基础</h2><p>栈内存：局部性、对象自动销毁</p><p>堆内存：运行期动态扩展、需要显式释放</p><h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><h2 id="动态内存的相关内容"><a href="#动态内存的相关内容" class="headerlink" title="动态内存的相关内容"></a>动态内存的相关内容</h2>]]></content>
     
     
     

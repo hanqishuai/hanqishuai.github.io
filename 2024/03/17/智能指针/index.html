@@ -16,15 +16,15 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="动态内存基础栈内存：局部性、对象自动销毁 堆内存：运行期动态扩展、需要显式释放 智能指针动态内存的相关内容">
+    <meta name="description" content="动态内存基础栈内存：局部性、对象自动销毁 堆内存：运行期动态扩展、需要显式释放 12345&#x2F;&#x2F;两者的区别int x &#x3D; 2;int *y&#x3D;new int(2);&#x2F;&#x2F;int *y &#x3D; new int;合理 缺省初始化会随机分配数值，这其实就是两步，分配内存+构造对象delete y;   对象的构造（对象的销毁与之类似）分为两步： 1、分配内存  2、在所分配的内存上构造对象 new的几种常见形式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/2024/03/17/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="动态内存基础栈内存：局部性、对象自动销毁 堆内存：运行期动态扩展、需要显式释放 智能指针动态内存的相关内容">
+<meta property="og:description" content="动态内存基础栈内存：局部性、对象自动销毁 堆内存：运行期动态扩展、需要显式释放 12345&#x2F;&#x2F;两者的区别int x &#x3D; 2;int *y&#x3D;new int(2);&#x2F;&#x2F;int *y &#x3D; new int;合理 缺省初始化会随机分配数值，这其实就是两步，分配内存+构造对象delete y;   对象的构造（对象的销毁与之类似）分为两步： 1、分配内存  2、在所分配的内存上构造对象 new的几种常见形式">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-03-17T10:53:02.505Z">
-<meta property="article:modified_time" content="2024-03-21T01:04:37.991Z">
+<meta property="article:modified_time" content="2024-03-30T12:07:03.325Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          47 words
+          1.9k words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          1 mins
+          16 mins
         
       </span>
     
@@ -274,7 +274,115 @@
                 
                 <h2 id="动态内存基础"><a href="#动态内存基础" class="headerlink" title="动态内存基础"></a>动态内存基础</h2><p>栈内存：局部性、对象自动销毁</p>
 <p>堆内存：运行期动态扩展、需要显式释放</p>
-<h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><h2 id="动态内存的相关内容"><a href="#动态内存的相关内容" class="headerlink" title="动态内存的相关内容"></a>动态内存的相关内容</h2>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">//两者的区别</span><br><span class="hljs-type">int</span> x = <span class="hljs-number">2</span>;<br><br><span class="hljs-type">int</span> *y=<span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//int *y = new int;合理 缺省初始化会随机分配数值，这其实就是两步，分配内存+构造对象</span><br><span class="hljs-keyword">delete</span> y;<br></code></pre></td></tr></table></figure>
+
+<p> 对象的构造（对象的销毁与之类似）分为<strong>两步</strong>：</p>
+<p><strong>1、分配内存  2、在所分配的内存上构造对象</strong></p>
+<p><strong>new的几种常见形式</strong></p>
+<ul>
+<li>构建单一对象&#x2F;对象数组</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> * y = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">5</span>];<br><span class="hljs-type">int</span> * y = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">5</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>nothrow new</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> * y = <span class="hljs-built_in">new</span>(std::nothrow) <span class="hljs-type">int</span>[<span class="hljs-number">5</span>];<span class="hljs-comment">//分配失败时不会抛出异常，且y指向nullptr</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>placement new   </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">char</span> ch[<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>)];<br><span class="hljs-type">int</span> *y = <span class="hljs-built_in">new</span> (ch) <span class="hljs-built_in">int</span>(<span class="hljs-number">4</span>);<span class="hljs-comment">//不要再次从堆上开辟内存，我这里已经分配好了内存空间，ch是首指针，这个指针所指向的内存空间是足够大的,显然这里ch指向的是栈内存</span><br><span class="hljs-comment">//这里代表的是 使用sizeof(int)确保ch数组可以容纳一个int类型的对象，然后把这个对象初始化为数值4</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>new auto+new 对齐操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> *y= <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">3</span>);<br><span class="hljs-comment">//稍作修改</span><br><span class="hljs-type">int</span> *y=<span class="hljs-keyword">new</span> <span class="hljs-built_in">auto</span>(<span class="hljs-number">3</span>);<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">alignas</span>(<span class="hljs-number">256</span>) Str&#123;&#125;<span class="hljs-comment">//定义Str的结构体，并使用alignas(256)进行对齐操作，这样的话，结构体实例的内存地址是256的倍数</span><br>Str * ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Str</span>();<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>delete的常见用法</p>
+<p>销毁单一对象&#x2F;对象数组 销毁的方式要对应好 <code>delete ptr /delete [] ptr;</code></p>
+<p>placement delete </p>
+</li>
+<li><p>其他注意事项</p>
+</li>
+<li><p><strong>如果实在没有办法需要进行多次重复删除同一个指针，请在第一次删除后将指针置为nullptr</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">delete</span> <span class="hljs-literal">nullptr</span>;<br><span class="hljs-comment">//不应重复删除，即使是nullptr，确保指针为nullptr(通常来讲，在删除之前，要判断一下是否为nullptr)</span><br></code></pre></td></tr></table></figure>
+
+<p>delete不可以删除栈区的对象</p>
+</li>
+<li><p>借鉴C语言的内容</p>
+<p>如果我们使用malloc新建对象，就要对应的使用free释放对象  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">int</span> *ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">3</span>);<br><br><span class="hljs-keyword">delete</span> ptr;<br><br><span class="hljs-comment">//显然这里ptr的删除，指的是new申请的那段堆内存被删除掉了，ptr本身作为保存在栈内存中的一个变量，不会被删除</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>很细节的地方</strong></p>
+</li>
+</ul>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> *ptr = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">5</span>];<br><span class="hljs-type">int</span> *ptr2 = ptr+<span class="hljs-number">1</span>;<br><span class="hljs-comment">//虽然这里的ptr2也是指针，但是不是new返回的指针，所以不可以使用delete删除</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><p>出现的背景：使用new与delete会存在问题：<strong>内存所有权不清晰、容易产生不销毁、多销毁的情况</strong></p>
+<p>解决方案</p>
+<p>auto_ptr(C++17删除)</p>
+<p>直接使用<strong>shared_ptr &#x2F; unique_ptr &#x2F; weak_ptr</strong>,不要再使用new&#x2F;delete的裸指针</p>
+<ul>
+<li><p>shared_ptr（基于引用计数的共享内存解决方案）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span> (<span class="hljs-number">3</span>))</span></span>;<span class="hljs-comment">//1</span><br>std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; y=x;	<span class="hljs-comment">//2,这里代表有5两个指针指向了那段内存</span><br></code></pre></td></tr></table></figure>
+
+<p>调用析构函数时，在这里肯定是，y先调用析构函数，x再调用析构函数，每调用依次，计数减一，到0时标明不会再使用这片内存。</p>
+</li>
+</ul>
+<p>指针的使用</p>
+<p>方式一	*x  </p>
+<p>方式二	x. get()</p>
+<p>方式三	x.reset(new int (4))	&#x2F;	x.reset( (int *) nullptr )</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> *ptr)</span></span><br><span class="hljs-function"></span>&#123;<br>std::cout&lt;&lt;<span class="hljs-string">&quot;Call delete fun\n&quot;</span>;<br><span class="hljs-keyword">delete</span> ptr;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">3</span>),fun)</span></span>;<span class="hljs-comment">//自定义析构函数，默认状态下是缺省的析构函数</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; x = std::<span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">3</span>);<br><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">3</span>))</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>这是单个对象，那数组呢？</strong></p>
+<p>C++17支持shared_ptr&lt;T[]&gt;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>[]&gt; <span class="hljs-title">x</span> <span class="hljs-params">( <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">3</span>] )</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>C++20支持make_shared分配数组</p>
+<p>auto  x &#x3D; std::make_shared&lt;int [5]&gt;();</p>
+<p>问题1</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">x</span> <span class="hljs-params">( <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">3</span>] )</span></span>;<br><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">y</span> <span class="hljs-params">(x.get())</span></span>;<span class="hljs-comment">//可以是x，但不能是x.get(),这个是原始指针，而不是智能指针</span><br></code></pre></td></tr></table></figure>
+
+<p>问题2</p>
+<p>将同一个原始指针 <code>ptr</code> 初始化为两个不同的 <code>std::shared_ptr&lt;int&gt;</code> 对象 <code>y</code> 和 <code>z</code>。这会导致问题，因为 <code>std::shared_ptr</code> 会对同一个资源进行引用计数，而在这种情况下，两个 <code>std::shared_ptr</code> 将会对同一个动态分配的内存进行管理，但是当其中一个 <code>std::shared_ptr</code> 被销毁时，它会尝试释放这个内存，而另一个 <code>std::shared_ptr</code> 也会对这块内存进行操作，这样就会导致内存的重复释放，从而导致程序崩溃或者其他未定义行为。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> *ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">3</span>);<br><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">y</span><span class="hljs-params">(ptr)</span></span>;<br><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">z</span><span class="hljs-params">(ptr)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>应改为</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">y</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">3</span>))</span></span>;<br>std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; z = y; <span class="hljs-comment">// 或者 std::shared_ptr&lt;int&gt; z(y);</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>unique_ptr</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++">unique_ptr <span class="hljs-comment">//独占内存的解决方案，不支持复制，但可以移动</span><br><br><span class="hljs-comment">//构造方式  </span><br><span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">3</span>))</span></span>;<br><span class="hljs-keyword">auto</span> y = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">3</span>);<br><br>std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; y=x;<span class="hljs-comment">//这里是共享内存的要求，是不被允许的。</span><br>std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; z=std::<span class="hljs-built_in">move</span>(x);<span class="hljs-comment">//这是移动，不是共享内存，是可以的。</span><br><br><br><span class="hljs-comment">//针对shared_ptr,这显然是合理的，因为可以共享</span><br><span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">fun</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-function">std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">3</span>))</span></span>;<br>	<span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	std::shared_ptr&lt;<span class="hljs-type">int</span>&gt; x = <span class="hljs-built_in">fun</span>();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">//换一下 来到unique_ptr,看似没有区别，其实这里是合理的，这里不是共享，而是移动（不会产生额外的拷贝）</span><br><span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">fun</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">res</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">3</span>))</span></span>;<br>	<span class="hljs-keyword">return</span> res;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; x = <span class="hljs-built_in">fun</span>();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>特殊点：指定回收逻辑</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> *ptr)</span></span><br><span class="hljs-function"></span>&#123;<br>std::cout&lt;&lt;<span class="hljs-string">&quot;Call delete fun\n&quot;</span>;<br><span class="hljs-keyword">delete</span> ptr;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::unique_ptr&lt;<span class="hljs-type">int</span>,<span class="hljs-title">decltype</span><span class="hljs-params">(&amp;fun)</span>&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">3</span>),fun)</span></span>;<span class="hljs-comment">//和shared_ptr有些不同  </span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>最后一种</p>
+<p>weak_ptr 防止循环引用而引入的智能指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs C++">Struct Str<br>&#123;<br>std::shared_ptr&lt;Str&gt; nei;<span class="hljs-comment">//私有物品，访问时就确定了所有权</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::shared_ptr&lt;Str&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Str)</span></span>;<br>    <span class="hljs-function">std::shared_ptr&lt;Str&gt; <span class="hljs-title">y</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Str)</span></span>;<br>    x-&gt;nei=y;<span class="hljs-comment">//增加了y的引用计数（保存了y指向的那片内存的引用次数）</span><br>    y-&gt;nei=x;<span class="hljs-comment">//增加了x的引用计数</span><br>&#125;<br><span class="hljs-comment">//这里会产生循环引用，内存不会删除掉</span><br><span class="hljs-comment">//原因引用计数最后执行完是1，而不是0</span><br><br><br>Struct Str<br>&#123;<br>std::weak_ptr&lt;Str&gt; nei;<span class="hljs-comment">//共享仓库，都具有访问的权利，但是并不持有资源的所有权</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">std::shared_ptr&lt;Str&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Str)</span></span>;<br>    <span class="hljs-function">std::shared_ptr&lt;Str&gt; <span class="hljs-title">y</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Str)</span></span>;<br>    <span class="hljs-comment">//下面两行不再增加引用计数</span><br>    x-&gt;nei=y;<br>    y-&gt;nei=x;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>困惑的地方</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs C++">Struct Str<br>&#123;<br>std::weak_ptr&lt;Str&gt; nei;<span class="hljs-comment">//共享仓库，都具有访问的权利，但是并不持有资源的所有权</span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-function">std::shared_ptr&lt;Str&gt; <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Str)</span></span>;<br>&#123;<span class="hljs-comment">//域内</span><br>    <span class="hljs-function">std::shared_ptr&lt;Str&gt; <span class="hljs-title">y</span><span class="hljs-params">(<span class="hljs-keyword">new</span> Str)</span></span>;<br>    x-&gt;nei = y;<br>&#125;<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">auto</span> ptr=x-&gt;nei.<span class="hljs-built_in">lock</span>();ptr)<span class="hljs-comment">//显然weak指针观察的资源已经被销毁，因为在域内，weak指针观察的资源和y指向的资源是同一个。</span><br>&#123;<br>    <span class="hljs-comment">//真</span><br>&#125;<span class="hljs-keyword">else</span><span class="hljs-comment">//调用“假”这一部分，返回了一个空的std::shared_ptr</span><br>&#123;<br>    <span class="hljs-comment">//假</span><br>&#125;<br>&#125;<br><span class="hljs-comment">//x-&gt;nei.lock()是在尝试获取被 std::weak_ptr 所观察的资源的 std::shared_ptr 指针</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="动态内存的相关内容"><a href="#动态内存的相关内容" class="headerlink" title="动态内存的相关内容"></a>动态内存的相关内容</h2><ol>
+<li><p>sizeof不会返回动态分配的内存大小,例:sizeof(std::vector<int> x)是不会随着数组x加入了多少元素而变化内存的大小，原因（sizeof运算符在编译时计算数据类型或对象的大小）</p>
+</li>
+<li><pre><code class="C++">//分配器
+std::allocator &lt;int&gt; al;
+int *ptr = al.allocate(3);//这里只分配了内存，但是没有进行初始化或赋值的操作
+al.deallocate(ptr,3);
+</code></pre>
+</li>
+<li><p>使用malloc&#x2F;free来管理内存(C语言引入)</p>
+</li>
+<li><p>使用aligned_alloc进行对齐分配（C语言引入）</p>
+</li>
+</ol>
+
                 
               </div>
             
@@ -335,6 +443,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/03/30/%E5%AE%B9%E5%99%A8/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

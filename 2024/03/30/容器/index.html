@@ -26,8 +26,9 @@
 <meta property="og:image" content="https://img2.imgtp.com/2024/04/01/GjmnoL4F.png">
 <meta property="og:image" content="https://img2.imgtp.com/2024/04/05/Cj1b8ueO.png">
 <meta property="og:image" content="https://img.qovv.cn/2024/04/08/66135fe515cb9.png">
+<meta property="og:image" content="https://img2.imgtp.com/2024/04/17/bIxp2zXU.png">
 <meta property="article:published_time" content="2024-03-30T12:08:47.218Z">
-<meta property="article:modified_time" content="2024-04-08T03:42:17.804Z">
+<meta property="article:modified_time" content="2024-05-27T07:07:13.315Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://img2.imgtp.com/2024/04/01/GjmnoL4F.png">
@@ -223,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          910 words
+          1.3k words
         
       </span>
     
@@ -234,7 +235,7 @@
         
         
         
-          8 mins
+          11 mins
         
       </span>
     
@@ -338,6 +339,7 @@
 </li>
 </ul>
 <h1 id="关联容器"><a href="#关联容器" class="headerlink" title="关联容器"></a>关联容器</h1><p>set&#x2F;map&#x2F;multiset&#x2F;multimap	底层使用红黑树（比较特殊的平衡二叉搜索树）</p>
+<p>unordered_xxx底层使用hash表实现     </p>
 <p><a target="_blank" rel="noopener" href="https://img.qovv.cn/2024/04/08/66135fe515cb9.png"><img src="https://img.qovv.cn/2024/04/08/66135fe515cb9.png" srcset="/img/loading.gif" lazyload alt="1712546173467.png"></a></p>
 <p>set迭代器所指向的对象是const的，不能通过其修改元素，构造时，元素默认使用＜比较大小，所以输出结果</p>
 <p>就是从小到大，如果要改</p>
@@ -348,9 +350,35 @@
 
 
 
+<p>map</p>
+<p><img src="https://img2.imgtp.com/2024/04/17/bIxp2zXU.png" srcset="/img/loading.gif" lazyload alt="1713357639871.png"></p>
+<p>map使用键值构建红黑树</p>
+<p><strong>map迭代器所指向的对象是std::pair,其键是const类型</strong>,值的类型不管</p>
+<p>所以接收的时候，auto [k,v] 或者说 auto &amp;[k,v]</p>
+<p><strong>[]操作不能用于常量对象</strong></p>
+<p>意思就是说</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">auto</span> ptr = m.<span class="hljs-built_in">find</span>(<span class="hljs-number">3</span>);`<span class="hljs-comment">//不可以直接使用m[3],这样就相当于在运行期直接调用这个常量对象  </span><br><br>`<span class="hljs-keyword">if</span>(ptr!=m.<span class="hljs-built_in">end</span>())`<br><br>`&#123;`<br><br>`ptr-&gt;second;`<br><br>`&#125;<br></code></pre></td></tr></table></figure>
+
+<p>multiset和multimap是允许重复的。   </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++">std::multiset&lt;<span class="hljs-type">int</span>&gt; s&#123;<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>&#125;中<br><span class="hljs-keyword">auto</span> b=s.<span class="hljs-built_in">lower_bound</span>(<span class="hljs-number">1</span>);<br>和<br><span class="hljs-built_in">lower_bound</span>(s.<span class="hljs-built_in">begin</span>(),s.<span class="hljs-built_in">end</span>(),<span class="hljs-number">1</span>);<br><span class="hljs-comment">//两者功能相同，第一个是成员函数调用、第二个使用全局函数以及需要提供容器的起始和结束迭代器</span><br><br><span class="hljs-keyword">auto</span> p=s.<span class="hljs-built_in">equal_range</span>(<span class="hljs-number">100</span>);<span class="hljs-comment">//直接返回区间的起始迭代器和结束迭代器的pair对</span><br>p.first<br>p.second<br><span class="hljs-comment">//来访问</span><br></code></pre></td></tr></table></figure>
 
 
-<p>unordered_xxx底层使用hash表实现   </p>
+
+<p>继续学习关联容器</p>
+<p>unordered_set&#x2F;unordered_map&#x2F;unordered_multiset&#x2F;unordered_multimap</p>
+<p>一定要做好区分</p>
+<p>set&#x2F;multiset&#x2F;unordered_set&#x2F;unordered_multiset</p>
+<p>唯一性&#x2F;</p>
+<p>不唯一但是仍按顺序存储&#x2F;</p>
+<p>唯一性但是使用hash表来存储</p>
+<p>不唯一且使用hash表来存储内容&#x2F;</p>
+<p>以上四者 除&#x3D;&#x3D;，!&#x3D;外，不支持容器级别的关系运算</p>
+<p>但是&#x3D;&#x3D;，!&#x3D;速度较慢</p>
+<h2 id="自定义hash与判等函数-如下："><a href="#自定义hash与判等函数-如下：" class="headerlink" title="自定义hash与判等函数, 如下："></a>自定义hash与判等函数, 如下：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Strr</span><br><br>&#123;<br><br>  <span class="hljs-type">int</span> x;<br><br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">size_t</span> <span class="hljs-title">myhash</span><span class="hljs-params">(<span class="hljs-type">const</span> Strr&amp; val)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"></span>&#123;<br><br>  <span class="hljs-keyword">return</span> val.x;<br><br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">myEqual</span><span class="hljs-params">(<span class="hljs-type">const</span> Strr&amp; val1,<span class="hljs-type">const</span> Strr&amp; val2)</span></span><br><span class="hljs-function"></span><br><span class="hljs-function"></span>&#123;<br><br>  <span class="hljs-keyword">return</span> val1.x==val2.x;<br><br>&#125;<br><br> <span class="hljs-function">std::unordered_set&lt;Strr,<span class="hljs-title">decltype</span><span class="hljs-params">(&amp;myhash)</span>,<span class="hljs-title">decltype</span><span class="hljs-params">(&amp;myEqual)</span>&gt; <span class="hljs-title">s1</span><span class="hljs-params">(<span class="hljs-number">1</span>,myhash,myEqual)</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>和以下效果等同</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Strr</span><br><br>&#123;<br><br>  <span class="hljs-type">int</span> x;<br><br><br><br>  <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>==(<span class="hljs-type">const</span> Strr&amp; t) <span class="hljs-type">const</span><br><br>  &#123;<br><br>   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>-&gt;x==t.x;<br><br>  &#125;<br><br>&#125;;<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">myhashfunction</span><br><br>&#123;<br><br>  <span class="hljs-function"><span class="hljs-type">size_t</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(<span class="hljs-type">const</span> Strr&amp; val)</span> <span class="hljs-type">const</span></span><br><span class="hljs-function"></span><br><span class="hljs-function">  </span>&#123;<br><br>   <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">hash</span>&lt;<span class="hljs-type">int</span>&gt;()(val.x);<br><br>  &#125;<br><br>&#125;;<br><br>std::unordered_set&lt;Strr,myhashfunction&gt; s2;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -412,6 +440,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/05/27/%E9%80%82%E9%85%8D%E5%99%A8/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
